@@ -38,19 +38,21 @@ body{font-family:var(--body);font-size:1.05rem;line-height:1.65;color:var(--crea
 
 /* Aurora animated background */
 .aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--void)}
-.aurora::after{content:"";position:absolute;inset:0;background:
-  radial-gradient(120% 80% at 50% 0%,rgba(0,0,0,0),rgba(18,22,29,.55) 78%),
-  radial-gradient(140% 100% at 50% 100%,rgba(0,0,0,0),var(--void) 82%);
-  z-index:1}
-.aurora .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;mix-blend-mode:screen;will-change:transform}
-.aurora .b1{width:56vw;height:56vw;top:-22%;left:-12%;background:radial-gradient(circle,var(--wine),transparent 68%);animation:auroraDrift1 24s ease-in-out infinite}
-.aurora .b2{width:52vw;height:52vw;bottom:-26%;right:-14%;background:radial-gradient(circle,var(--gold),transparent 68%);animation:auroraDrift2 28s ease-in-out infinite}
-.aurora .b3{width:42vw;height:42vw;top:32%;left:32%;background:radial-gradient(circle,var(--violet),transparent 68%);animation:auroraDrift3 32s ease-in-out infinite}
-.aurora .grain{position:absolute;inset:0;opacity:.05;z-index:2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-@keyframes auroraDrift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(8vw,9vh) scale(1.15)}}
-@keyframes auroraDrift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-9vw,-6vh) scale(1.1)}}
-@keyframes auroraDrift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vw,7vh) scale(1.2)}}
-@media (prefers-reduced-motion:reduce){.aurora .blob{animation:none}}
+.aurora .flow{position:absolute;inset:-15%;background:linear-gradient(115deg,
+    var(--wine) 0%, var(--violet) 22%, var(--gold) 44%, var(--wine-hi) 66%, var(--violet-hi) 84%, var(--wine) 100%);
+  background-size:340% 340%;
+  filter:blur(70px) saturate(130%);
+  opacity:.6;
+  animation:gradientFlow 22s ease infinite}
+.aurora .veil{position:absolute;inset:0;background:
+    radial-gradient(120% 85% at 50% 0%,rgba(18,22,29,.25),rgba(18,22,29,.82) 70%),
+    linear-gradient(180deg,rgba(18,22,29,.35),var(--void) 88%)}
+@keyframes gradientFlow{
+  0%{background-position:0% 45%}
+  50%{background-position:100% 56%}
+  100%{background-position:0% 45%}
+}
+@media (prefers-reduced-motion:reduce){.aurora .flow{animation:none}}
 
 /* Glass card component */
 .glass{background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:0 8px 32px rgba(0,0,0,.28)}
@@ -301,10 +303,8 @@ footer small{display:block;margin-top:.6rem;opacity:.8;max-width:52ch}
 </head>
 <body>
 <div class="aurora" aria-hidden="true">
-  <span class="blob b1"></span>
-  <span class="blob b2"></span>
-  <span class="blob b3"></span>
-  <span class="grain"></span>
+  <div class="flow"></div>
+  <div class="veil"></div>
 </div>
 
 <header class="nav">
